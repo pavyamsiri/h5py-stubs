@@ -1,0 +1,52 @@
+[project]
+name = "python-stubs"
+version = "0.1.0"
+description = "My type stubs for python libraries."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+
+[tool.ruff]
+line-length = 130
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "ANN101",
+    "ANN102",
+    "COM812",
+    "D203",
+    "D213",
+    "ISC001",
+    "PLR0913",
+    "PLR0915",
+    "PLR2004",
+    "S101",
+    "TD003",
+]
+
+[tool.pyright]
+pythonVersion = "3.10"
+pythonPlatform = "All"
+typeCheckingMode = "strict"
+exclude = [".venv"]
+ignore = [".venv"]
+venvPath = "."
+venv = ".venv"
+stubPath = "."
+
+reportDeprecated = true
+reportMissingParameterType = true
+reportMissingTypeArgument = true
+reportUnknownArgumentType = true
+reportUnknownParameterType = true
+reportUnknownVariableType = true
+deprecateTypingAliases = true
+enableTypeIgnoreComments = false
+reportIgnoreCommentWithoutRule = true
+reportImplicitRelativeImport = true
+reportInvalidCast = true
+reportPrivateUsage = false
+reportUnnecessaryTypeIgnoreComment = true
+reportUnsafeMultipleInheritance = true
