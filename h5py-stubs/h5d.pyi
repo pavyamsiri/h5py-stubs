@@ -1,0 +1,6 @@
+from h5py._objects import ObjectID
+from h5py.h5p import PropID
+
+class DatasetID(ObjectID): ...
+
+def open(loc: ObjectID, name: bytes, dapl: PropID | None = None) -> DatasetID: ...
