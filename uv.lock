@@ -23,6 +23,21 @@ wheels = [
 ]
 
 [[package]]
+name = "h5py-stubs"
+version = "0.1.0"
+source = { editable = "." }
+dependencies = [
+    { name = "h5py" },
+    { name = "optype" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "h5py", specifier = ">=3.12.1" },
+    { name = "optype", specifier = ">=0.6.1" },
+]
+
+[[package]]
 name = "numpy"
 version = "2.1.2"
 source = { registry = "https://pypi.org/simple" }
@@ -68,21 +83,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/58/38/2d936e807e1559993f3b20d643c023470e31d0f9c3bea2d9d72835e88436/optype-0.6.1.tar.gz", hash = "sha256:3a410d65632a449e63a03182eb504d03f404427a99724868e7e393eb8e376207", size = 74229 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/d0/58/39a30061163df33b5ffed0c1deeca3af3fa61f00ba2bb7f5af39a31dfb77/optype-0.6.1-py3-none-any.whl", hash = "sha256:ba45f940b7d858225c2995e273f404f1c7c8b2f1d71041b1413e5105104d2515", size = 62528 },
-]
-
-[[package]]
-name = "python-stubs"
-version = "0.1.0"
-source = { virtual = "." }
-dependencies = [
-    { name = "h5py" },
-    { name = "optype" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "h5py", specifier = ">=3.12.1" },
-    { name = "optype", specifier = ">=0.6.1" },
 ]
 
 [[package]]
