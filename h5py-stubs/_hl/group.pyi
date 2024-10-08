@@ -2,7 +2,6 @@ from collections.abc import Callable, Generator, Iterator
 from contextlib import contextmanager
 from typing import TypeVar
 
-import numpy as np
 from _typeshed import StrOrBytesPath
 from h5py._hl.vds import VirtualLayout
 from h5py.h5g import GroupID
@@ -15,11 +14,8 @@ from .dataset import Dataset
 from .datatype import Datatype
 
 _R = TypeVar("_R")
-type _DType = np.dtype[np.generic]
-type _AnyShape = tuple[int, ...]
-type _AnyArray = np.ndarray[_AnyShape, _DType]
-
-type GroupGetResult = (
+type _GroupKey = str | bytes | Reference
+type _GroupGetResult = (
     type[Group | Dataset | Datatype | SoftLink | ExternalLink | HardLink]
     | Group
     | Dataset
@@ -29,7 +25,7 @@ type GroupGetResult = (
     | HardLink
 )
 
-class Group(HLObject, MutableMappingHDF5):
+class Group(HLObject, MutableMappingHDF5[_GroupKey, _GroupGetResult | None]):
     def __init__(self, bind: GroupID) -> None: ...
     def create_group(self, name: str | bytes, track_order: bool | None = None) -> Group: ...
     def create_dataset(
@@ -37,7 +33,7 @@ class Group(HLObject, MutableMappingHDF5):
         name: str | bytes | None,
         shape: tuple[int, ...] | None = None,
         dtype: onpt.AnyDType | None = None,
-        data: _AnyArray | None = None,
+        data: onpt.AnyArray | None = None,
         **kwds: object,
     ) -> Dataset: ...
     def create_virtual_dataset(
@@ -60,9 +56,9 @@ class Group(HLObject, MutableMappingHDF5):
     def __getitem__(self, name: str | bytes | Reference) -> Group | Dataset | Datatype: ...
     def get(
         self, name: str | bytes | Reference, default: object | None = None, getclass: bool = False, getlink: bool = False
-    ) -> GroupGetResult | None: ...
-    def __setitem__(self, name: str | bytes, obj: object) -> None: ...
-    def __delitem__(self, name: str | bytes) -> None: ...
+    ) -> _GroupGetResult | None: ...
+    def __setitem__(self, name: _GroupKey, obj: object) -> None: ...
+    def __delitem__(self, name: _GroupKey) -> None: ...
     def __len__(self) -> int: ...
     def __iter__(self) -> Iterator[str]: ...
     def __reversed__(self) -> Iterator[str]: ...
