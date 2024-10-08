@@ -24,6 +24,7 @@ ignore = [
     "PLR2004",
     "S101",
     "TD003",
+    "N801",
 ]
 
 [tool.pyright]
