@@ -1,0 +1,3 @@
+from h5py._objects import ObjectID
+
+class FileID(ObjectID): ...
