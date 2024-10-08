@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "My type stubs for python libraries."
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = ["h5py>=3.12.1"]
 
 
 [tool.ruff]
@@ -27,6 +27,7 @@ ignore = [
 ]
 
 [tool.pyright]
+include = ["h5py-stubs"]
 pythonVersion = "3.10"
 pythonPlatform = "All"
 typeCheckingMode = "strict"
