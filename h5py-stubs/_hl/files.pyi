@@ -6,7 +6,7 @@ from h5py._hl.attrs import AttributeManager
 from h5py.h5f import FileID
 from h5py.h5p import PropFAID, PropFCID
 from optype import CanInt
-from typing_extensions import Self  # noqa: UP035
+from typing_extensions import Self, override  # noqa: UP035
 
 from .group import Group
 
@@ -51,6 +51,7 @@ def make_fid(
 
 class File(Group):
     @property
+    @override
     def attrs(self) -> AttributeManager: ...
     @property
     def filename(self) -> str: ...
