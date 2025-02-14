@@ -1,11 +1,8 @@
 import atexit
 from types import ModuleType
 from typing import Final
-from warnings import warn as _warn
 
-from . import _errors, h5a, h5d, h5ds, h5f, h5fd, h5g, h5p, h5pl, h5py_warnings, h5r, h5s, h5t, h5z, utils, version
-from ._conv import register_converters as _register_converters
-from ._conv import unregister_converters as _unregister_converters
+from . import h5a, h5d, h5ds, h5f, h5fd, h5g, h5p, h5pl, h5py_warnings, h5r, h5s, h5t, h5z, utils, version
 from ._hl import filters
 from ._hl.attrs import AttributeManager
 from ._hl.base import Empty, HLObject, is_hdf5
@@ -33,7 +30,6 @@ from .h5t import (
     string_dtype,
     vlen_dtype,
 )
-from .h5z import _register_lzf
 from .version import version as __version__
 
 defs: Final[ModuleType]
@@ -42,6 +38,7 @@ def run_tests(args: str = ...) -> int: ...
 def enable_ipython_completer() -> None: ...
 
 __all__ = [
+    "UNLIMITED",
     "AttributeManager",
     "Dataset",
     "Datatype",
@@ -55,9 +52,9 @@ __all__ = [
     "Reference",
     "RegionReference",
     "SoftLink",
-    "UNLIMITED",
     "VirtualLayout",
     "VirtualSource",
+    "__version__",
     "atexit",
     "check_dtype",
     "check_enum_dtype",
