@@ -2,7 +2,7 @@ import atexit
 from types import ModuleType
 from typing import Final
 
-from . import h5a, h5d, h5ds, h5f, h5fd, h5g, h5p, h5pl, h5py_warnings, h5r, h5s, h5t, h5z, utils, version
+from . import h5, h5a, h5d, h5ds, h5f, h5fd, h5g, h5p, h5pl, h5py_warnings, h5r, h5s, h5t, h5z, utils, version
 from ._hl import filters
 from ._hl.attrs import AttributeManager
 from ._hl.base import Empty, HLObject, is_hdf5
