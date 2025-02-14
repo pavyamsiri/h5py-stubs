@@ -1,7 +1,7 @@
 import atexit
 from warnings import warn as _warn
 
-from . import _errors, h5a, h5d, h5ds, h5f, h5fd, h5g, h5p, h5pl, h5r, h5s, h5t, h5z, version
+from . import _errors, h5a, h5d, h5ds, h5f, h5fd, h5g, h5p, h5pl, h5r, h5s, h5t, h5z, utils, version
 from ._conv import register_converters as _register_converters
 from ._conv import unregister_converters as _unregister_converters
 from ._hl import filters
