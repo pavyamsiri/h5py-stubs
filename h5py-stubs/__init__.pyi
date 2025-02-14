@@ -1,19 +1,21 @@
 import atexit
 from warnings import warn as _warn
+
 from . import _errors, h5a, h5d, h5ds, h5f, h5fd, h5g, h5p, h5pl, h5r, h5s, h5t, h5z, version
-from ._conv import register_converters as _register_converters, unregister_converters as _unregister_converters
-from .h5z import _register_lzf
+from ._conv import register_converters as _register_converters
+from ._conv import unregister_converters as _unregister_converters
 from ._hl import filters
+from ._hl.attrs import AttributeManager
 from ._hl.base import Empty, HLObject, is_hdf5
-from ._hl.files import File, register_driver, registered_drivers, unregister_driver
-from ._hl.group import ExternalLink, Group, HardLink, SoftLink
 from ._hl.dataset import Dataset
 from ._hl.datatype import Datatype
-from ._hl.attrs import AttributeManager
+from ._hl.files import File, register_driver, registered_drivers, unregister_driver
+from ._hl.group import ExternalLink, Group, HardLink, SoftLink
 from ._hl.vds import VirtualLayout, VirtualSource
 from ._selector import MultiBlockSlice
 from .h5 import get_config
 from .h5r import Reference, RegionReference
+from .h5s import UNLIMITED
 from .h5t import (
     check_dtype,
     check_enum_dtype,
@@ -29,13 +31,11 @@ from .h5t import (
     string_dtype,
     vlen_dtype,
 )
-from .h5s import UNLIMITED
+from .h5z import _register_lzf
 from .version import version as __version__
 
-def run_tests(args=...):  # -> int:
-    ...
-def enable_ipython_completer():  # -> None:
-    ...
+def run_tests(args: str = ...) -> int: ...
+def enable_ipython_completer() -> None: ...
 
 __all__ = [
     "AttributeManager",
