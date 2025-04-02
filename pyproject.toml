@@ -3,7 +3,7 @@ name = "h5py-stubs"
 version = "0.1.0"
 description = "Type stubs for h5py."
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.10"
 dependencies = ["h5py>=3.12.1", "optype>=0.6.1"]
 
 
