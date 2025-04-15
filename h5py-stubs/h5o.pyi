@@ -3,7 +3,7 @@ from typing import Final, TypeVar, overload
 
 from ._objects import ObjectID, phil, with_phil
 from .h5g import GroupID
-from .h5p import PropID
+from .h5p import PropCopyID, PropLAID, PropLCID
 
 __all__ = [
     "COPY_EXPAND_EXT_LINK_FLAG",
@@ -46,12 +46,12 @@ def copy(
     src_name: bytes,
     dst_loc: GroupID,
     dst_name: bytes,
-    copypl: PropID | None = None,
-    lcpl: PropID | None = None,
+    copypl: PropCopyID | None = None,
+    lcpl: PropLCID | None = None,
 ) -> None: ...
-def exists_by_name(loc: ObjectID, name: bytes, lapl: PropID | None = None) -> bool: ...
-def get_comment(loc: ObjectID, comment: bytes, *, obj_name: bytes = b".", lapl: PropID | None = None) -> bytes: ...
-def set_comment(loc: ObjectID, comment: bytes, *, obj_name: bytes = b".", lapl: PropID | None = None) -> None: ...
+def exists_by_name(loc: ObjectID, name: bytes, lapl: PropLAID | None = None) -> bool: ...
+def get_comment(loc: ObjectID, comment: bytes, *, obj_name: bytes = b".", lapl: PropLAID | None = None) -> bytes: ...
+def set_comment(loc: ObjectID, comment: bytes, *, obj_name: bytes = b".", lapl: PropLAID | None = None) -> None: ...
 def get_info(
     loc: ObjectID,
     name: bytes = b"",
@@ -60,10 +60,10 @@ def get_info(
     obj_name: bytes = b".",
     index_type: int = ...,
     order: int = ...,
-    lapl: PropID | None = None,
+    lapl: PropLAID | None = None,
 ) -> ObjInfo: ...
-def link(obj: ObjectID, loc: GroupID, name: bytes, lcpl: PropID | None = None, lapl: PropID | None = None) -> None: ...
-def open(loc: ObjectID, name: bytes, lapl: PropID | None = None) -> ObjectID: ...
+def link(obj: ObjectID, loc: GroupID, name: bytes, lcpl: PropLCID | None = None, lapl: PropLAID | None = None) -> None: ...
+def open(loc: ObjectID, name: bytes, lapl: PropLAID | None = None) -> ObjectID: ...
 
 # visit overloads
 # Case 1: info = False
@@ -75,7 +75,7 @@ def visit(
     idx_type: int = ...,
     order: int = ...,
     obj_name: bytes = b".",
-    lapl: PropID | None = None,
+    lapl: PropLAID | None = None,
     info: bool = False,
 ) -> _R: ...
 
@@ -88,7 +88,7 @@ def visit(
     idx_type: int = ...,
     order: int = ...,
     obj_name: bytes = b".",
-    lapl: PropID | None = None,
+    lapl: PropLAID | None = None,
     info: bool = False,
 ) -> _R: ...
 
