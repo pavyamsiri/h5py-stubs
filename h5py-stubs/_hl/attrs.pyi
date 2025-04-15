@@ -1,4 +1,5 @@
 from collections.abc import Iterator
+from typing import TypeAlias
 
 import numpy as np
 from h5py.h5a import AttrID
@@ -6,8 +7,8 @@ from optype import numpy as onpt
 
 from .base import CommonStateObject, Empty, HLObject, MutableMappingHDF5
 
-type _AnyShape = tuple[int, ...]
-type _AnyArray = np.ndarray[_AnyShape, onpt.DType]
+_AnyShape: TypeAlias = tuple[int, ...]
+_AnyArray: TypeAlias = np.ndarray[_AnyShape, onpt.DType]
 
 class AttributeManager(MutableMappingHDF5, CommonStateObject):
     def __init__(self, parent: HLObject) -> None: ...
