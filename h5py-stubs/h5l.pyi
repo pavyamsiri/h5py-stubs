@@ -3,7 +3,7 @@ from typing import Final, Literal, TypeVar, overload
 
 from ._objects import phil, with_phil
 from .h5g import GroupID
-from .h5p import PropID
+from .h5p import PropLAID, PropLCID
 
 __all__ = [
     "TYPE_EXTERNAL",
@@ -40,44 +40,44 @@ class LinkProxy:
         new_name: bytes,
         cur_loc: GroupID,
         cur_name: bytes,
-        lcpl: PropID | None = None,
-        lapl: PropID | None = None,
+        lcpl: PropLCID | None = None,
+        lapl: PropLAID | None = None,
     ) -> None: ...
     def create_soft(
         self,
         new_name: bytes,
         target: bytes,
-        lcpl: PropID | None = None,
-        lapl: PropID | None = None,
+        lcpl: PropLCID | None = None,
+        lapl: PropLAID | None = None,
     ) -> None: ...
     def create_external(
         self,
         link_name: bytes,
         file_name: bytes,
         obj_name: bytes,
-        lcpl: PropID | None = None,
-        lapl: PropID | None = None,
+        lcpl: PropLCID | None = None,
+        lapl: PropLAID | None = None,
     ) -> None: ...
     def get_val(
         self,
         name: bytes,
-        lapl: PropID | None = None,
+        lapl: PropLAID | None = None,
     ) -> bytes | tuple[bytes, bytes]: ...
     def move(
         self,
         src_name: bytes,
         dst_loc: GroupID,
         dst_name: bytes,
-        lcpl: PropID | None = None,
-        lapl: PropID | None = None,
+        lcpl: PropLCID | None = None,
+        lapl: PropLAID | None = None,
     ) -> None: ...
-    def exists(self, name: bytes, lapl: PropID | None = None) -> bool: ...
+    def exists(self, name: bytes, lapl: PropLAID | None = None) -> bool: ...
     def get_info(
         self,
         name: bytes,
         index: int = -1,
         *,
-        lapl: PropID | None = None,
+        lapl: PropLAID | None = None,
     ) -> LinkInfo: ...
 
     # visit overloads
@@ -89,7 +89,7 @@ class LinkProxy:
         idx_type: int = ...,
         order: int = ...,
         obj_name: bytes = b".",
-        lapl: PropID | None = None,
+        lapl: PropLAID | None = None,
         info: bool = False,
     ) -> _R: ...
     @overload
@@ -100,7 +100,7 @@ class LinkProxy:
         idx_type: int = ...,
         order: int = ...,
         obj_name: bytes = b".",
-        lapl: PropID | None = None,
+        lapl: PropLAID | None = None,
         info: bool = True,
     ) -> _R: ...
 
@@ -113,7 +113,7 @@ class LinkProxy:
         idx_type: int = ...,
         order: int = ...,
         obj_name: bytes = b".",
-        lapl: PropID | None = None,
+        lapl: PropLAID | None = None,
         info: bool = False,
         idx: int = 0,
     ) -> tuple[_R, int]: ...
@@ -125,7 +125,7 @@ class LinkProxy:
         idx_type: int = ...,
         order: int = ...,
         obj_name: bytes = b".",
-        lapl: PropID | None = None,
+        lapl: PropLAID | None = None,
         info: bool = True,
         idx: int = 0,
     ) -> tuple[_R, int]: ...
