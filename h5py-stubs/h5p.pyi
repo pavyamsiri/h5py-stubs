@@ -1,4 +1,8 @@
-from h5py._objects import ObjectID
+from typing import Final
+
+from ._objects import ObjectID
+
+CRT_ORDER_TRACKED: Final[int]
 
 type _PropListID = (
     PropFCID | PropFAID | PropDCID | PropDXID | PropCopyID | PropLCID | PropLAID | PropGCID | PropDAID | PropOCID | PropTCID
