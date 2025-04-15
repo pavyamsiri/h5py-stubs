@@ -3,7 +3,7 @@ from collections.abc import Callable
 from typing import Final, TypeVar
 
 from ._objects import ObjectID, phil, with_phil
-from .h5p import CRT_ORDER_TRACKED, PropGCID, PropID
+from .h5p import CRT_ORDER_TRACKED, PropGCID, PropLCID
 
 __all__ = [
     "CRT_ORDER_TRACKED",
@@ -41,8 +41,8 @@ LINK_SOFT: Final[int]
 def create(
     loc: ObjectID,
     name: bytes | None,
-    lcpl: PropID | None = None,
-    gcpl: PropID | None = None,
+    lcpl: PropLCID | None = None,
+    gcpl: PropGCID | None = None,
 ) -> GroupID: ...
 def open(loc: ObjectID, name: bytes) -> GroupID: ...
 def get_objinfo(

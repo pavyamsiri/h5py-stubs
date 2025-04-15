@@ -4,7 +4,7 @@ from typing import TypeAlias, TypeVar, overload
 import numpy as np
 
 from ._objects import ObjectID, phil, with_phil
-from .h5p import PropID
+from .h5p import PropLAID
 from .h5s import SpaceID
 from .h5t import TypeID
 
@@ -34,12 +34,12 @@ def open(
     obj_name: bytes = b".",
     index_type: int = ...,
     order: int = ...,
-    lapl: PropID | None = None,
+    lapl: PropLAID | None = None,
 ) -> AttrID: ...
-def exists(loc: ObjectID, name: bytes, *, obj_name: bytes = b"", lapl: PropID | None = None) -> bool: ...
-def rename(loc: ObjectID, name: bytes, new_name: bytes, *, obj_name: bytes = b".", lapl: PropID | None = None) -> None: ...
+def exists(loc: ObjectID, name: bytes, *, obj_name: bytes = b"", lapl: PropLAID | None = None) -> bool: ...
+def rename(loc: ObjectID, name: bytes, new_name: bytes, *, obj_name: bytes = b".", lapl: PropLAID | None = None) -> None: ...
 def create(
-    loc: ObjectID, name: bytes, tid: TypeID, space: SpaceID, *, obj_name: bytes = b".", lapl: PropID | None = None
+    loc: ObjectID, name: bytes, tid: TypeID, space: SpaceID, *, obj_name: bytes = b".", lapl: PropLAID | None = None
 ) -> AttrID: ...
 def delete(
     loc: ObjectID,
@@ -49,7 +49,7 @@ def delete(
     obj_name: bytes = b".",
     index_type: int = ...,
     order: int = ...,
-    lapl: PropID | None = None,
+    lapl: PropLAID | None = None,
 ) -> None: ...
 def get_info(
     loc: ObjectID,
@@ -57,7 +57,7 @@ def get_info(
     index: int = -1,
     *,
     obj_name: bytes = b".",
-    lapl: PropID | None = None,
+    lapl: PropLAID | None = None,
     index_type: int = ...,
     order: int = ...,
 ) -> AttrInfo: ...
