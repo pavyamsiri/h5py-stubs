@@ -1,12 +1,10 @@
-import sys
 from collections.abc import Callable
-from typing import Final, TypeVar
+from typing import Final
 
-from ._objects import ObjectID, phil, with_phil
-from .h5p import CRT_ORDER_TRACKED, PropGCID, PropLCID
+from ._objects import ObjectID
+from .h5p import PropGCID, PropLCID
 
 __all__ = [
-    "CRT_ORDER_TRACKED",
     "DATASET",
     "GROUP",
     "LINK",
@@ -22,12 +20,7 @@ __all__ = [
     "get_objinfo",
     "iterate",
     "open",
-    "phil",
-    "sys",
-    "with_phil",
 ]
-
-_R = TypeVar("_R")
 
 UNKNOWN: Final[int]
 LINK: Final[int]
@@ -50,13 +43,13 @@ def get_objinfo(
     name: bytes = b".",
     follow_link: bool = True,
 ) -> GroupStat: ...
-def iterate(
+def iterate[R](
     loc: GroupID,
-    func: Callable[[bytes], _R | None],
+    func: Callable[[bytes], R | None],
     startidx: int = 0,
     *,
     obj_name: bytes = b".",
-) -> _R: ...
+) -> R: ...
 
 class GroupStat:
     @property

@@ -1,19 +1,20 @@
 from collections.abc import Callable, Generator, Iterator
 from contextlib import contextmanager
-from typing import TypeVar
+from typing import override
 
 from _typeshed import StrOrBytesPath
 from h5py._hl.vds import VirtualLayout
 from h5py.h5g import GroupID
 from h5py.h5r import Reference
 from optype import CanStr
-from optype import numpy as onpt
+from optype import numpy as onp
 
 from .base import HLObject, MutableMappingHDF5
 from .dataset import Dataset
 from .datatype import Datatype
 
-_R = TypeVar("_R")
+__all__ = ["ExternalLink", "Group", "HardLink", "SoftLink"]
+
 type _GroupKey = str | bytes | Reference
 type _GroupGetResult = (
     type[Group | Dataset | Datatype | SoftLink | ExternalLink | HardLink]
@@ -32,8 +33,8 @@ class Group(HLObject, MutableMappingHDF5[_GroupKey, _GroupGetResult | None]):
         self,
         name: str | bytes | None,
         shape: tuple[int, ...] | None = None,
-        dtype: onpt.AnyDType | None = None,
-        data: onpt.AnyArray | None = None,
+        dtype: onp.AnyDType | None = None,
+        data: onp.AnyArray | None = None,
         **kwds: object,
     ) -> Dataset: ...
     def create_virtual_dataset(
@@ -44,24 +45,31 @@ class Group(HLObject, MutableMappingHDF5[_GroupKey, _GroupGetResult | None]):
         self,
         name: str,
         shape: tuple[int, ...],
-        dtype: onpt.DType,
+        dtype: onp.DType,
         maxshape: tuple[int, ...] | None = None,
         fillvalue: object | None = None,
     ) -> Generator[VirtualLayout, None, None]: ...
     def require_dataset(
-        self, name: str | bytes, shape: tuple[int, ...], dtype: onpt.DType, exact: bool = False, **kwds: object
+        self, name: str | bytes, shape: tuple[int, ...], dtype: onp.DType, exact: bool = False, **kwds: object
     ) -> Dataset: ...
     def create_dataset_like(self, name: str | bytes | None, other: Dataset, **kwupdate: object) -> Dataset: ...
     def require_group(self, name: str | bytes | Reference) -> Group: ...
-    def __getitem__(self, name: str | bytes | Reference) -> Group | Dataset | Datatype: ...
+    @override
     def get(
         self, name: str | bytes | Reference, default: object | None = None, getclass: bool = False, getlink: bool = False
     ) -> _GroupGetResult | None: ...
+    @override
+    def __getitem__(self, name: str | bytes | Reference) -> Group | Dataset | Datatype: ...
+    @override
     def __setitem__(self, name: _GroupKey, obj: object) -> None: ...
+    @override
     def __delitem__(self, name: _GroupKey) -> None: ...
+    @override
     def __len__(self) -> int: ...
+    @override
     def __iter__(self) -> Iterator[str]: ...
     def __reversed__(self) -> Iterator[str]: ...
+    @override
     def __contains__(self, name: object) -> bool: ...
     def copy(
         self,
@@ -75,10 +83,10 @@ class Group(HLObject, MutableMappingHDF5[_GroupKey, _GroupGetResult | None]):
         without_attrs: bool = False,
     ) -> None: ...
     def move(self, source: str | bytes, dest: str | bytes) -> None: ...
-    def visit(self, func: Callable[[str], _R | None]) -> _R | None: ...
-    def visititems(self, func: Callable[[str, object], _R | None]) -> _R | None: ...
-    def visit_links(self, func: Callable[[str], _R | None]) -> _R | None: ...
-    def visititems_links(self, func: Callable[[str, object], _R | None]) -> _R | None: ...
+    def visit[R](self, func: Callable[[str], R | None]) -> R | None: ...
+    def visititems[R](self, func: Callable[[str, object], R | None]) -> R | None: ...
+    def visit_links[R](self, func: Callable[[str], R | None]) -> R | None: ...
+    def visititems_links[R](self, func: Callable[[str, object], R | None]) -> R | None: ...
 
 class HardLink: ...
 

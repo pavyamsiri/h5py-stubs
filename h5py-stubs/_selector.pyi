@@ -1,10 +1,8 @@
 from types import EllipsisType
-from typing import TypeAlias, TypeVar
 
 import numpy as np
 import optype as op
-from numpy.typing import NBitBase
-from optype import numpy as onpt
+from optype import numpy as onp
 
 from .h5d import DatasetID
 from .h5s import SpaceID
@@ -16,18 +14,7 @@ __all__ = [
     "np",
 ]
 
-_AnyShape: TypeAlias = tuple[int, ...]
-_SCT = TypeVar("_SCT", bound=np.generic, default=np.generic)
-_AnyArray: TypeAlias = np.ndarray[_AnyShape, np.dtype[_SCT]]
-_Array1D: TypeAlias = np.ndarray[tuple[int], np.dtype[_SCT]]
-_SelectorArg: TypeAlias = (
-    EllipsisType
-    | slice[int]
-    | op.CanInt[int]
-    | MultiBlockSlice
-    | _Array1D[np.integer[NBitBase]]
-    | onpt.ToArray1D[np.integer[NBitBase]]
-)
+type _SelectorArg = EllipsisType | slice[int] | op.CanInt | MultiBlockSlice | onp.Array1D[np.integer] | onp.ToArray1D[np.integer]
 
 class MultiBlockSlice:
     start: int
@@ -50,4 +37,4 @@ class Selector:
 
 class Reader:
     def __init__(self, dsid: DatasetID) -> None: ...
-    def read(self, args: tuple[_SelectorArg, ...]) -> np.generic | _AnyArray: ...
+    def read(self, args: tuple[_SelectorArg, ...]) -> np.generic | onp.AnyArray: ...

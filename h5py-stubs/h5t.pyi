@@ -1,25 +1,19 @@
 import codecs
 import platform
-import sys
-from collections import namedtuple
-from typing import Any, Final, Literal, NamedTuple, TypeAlias, TypeVar, overload
+from typing import Any, Final, Literal, NamedTuple, overload
 
 import numpy as np
 from numpy.dtypes import BytesDType, ObjectDType
-from numpy.typing import NBitBase
+from optype import numpy as onp
 
-from ._objects import ObjectID, phil, with_phil
+from ._objects import ObjectID
 from .h5 import H5PYConfig, get_config
 from .h5f import FileID
 from .h5g import GroupID
 from .h5p import PropDXID, PropLCID, PropTCID
 from .h5r import Reference, RegionReference
 
-_Encoding: TypeAlias = Literal["ascii", "utf-8"]
-_GT = TypeVar("_GT", bound=Any, default=Any)
-_IT = TypeVar("_IT", bound=np.integer[NBitBase], default=np.integer[NBitBase])
-_GenericIntDType: TypeAlias = np.dtype[_IT]
-_GenericArray: TypeAlias = np.ndarray[tuple[int, ...], np.dtype[Any]]
+type _Encoding = Literal["ascii", "utf-8"]
 
 cfg: Final[H5PYConfig]
 ref_dtype: Final[ObjectDType]
@@ -47,7 +41,7 @@ def special_dtype(*, vlen: type[str] | np.dtype[Any]) -> ObjectDType: ...
 
 # Case 2: enum = (basetype, value_dict)
 @overload
-def special_dtype(*, enum: tuple[_GenericIntDType[_IT], dict[str, int]]) -> _GenericIntDType[_IT]: ...
+def special_dtype[Int: np.int64](*, enum: tuple[onp.DType[Int], dict[str, int]]) -> onp.DType[Int]: ...
 
 # Case 3: ref = Reference | RegionReference
 @overload
@@ -58,11 +52,11 @@ def special_dtype(*, ref: type[Reference | RegionReference]) -> ObjectDType: ...
 # enum_dtype overloads
 # Case 1: basetype is given
 @overload
-def enum_dtype(values_dict: dict[str, int], basetype: _GenericIntDType[_IT]) -> _GenericIntDType[_IT]: ...
+def enum_dtype[Int: np.int64](values_dict: dict[str, int], basetype: onp.DType[Int]) -> onp.DType[Int]: ...
 
 # Case 2: basetype is defaulted
 @overload
-def enum_dtype(values_dict: dict[str, int], basetype: _GenericIntDType = ...) -> _GenericIntDType: ...
+def enum_dtype(values_dict: dict[str, int], basetype: onp.DType[np.integer] = ...) -> onp.DType[np.integer]: ...
 
 # end enum_dtype overloads
 # string_dtype overloads
@@ -72,7 +66,7 @@ def string_dtype(encoding: _Encoding, length: int) -> BytesDType[Any]: ...
 
 # Case 2: length is defaulted
 @overload
-def string_dtype(encoding: _Encoding = "utf-8", length: Literal[None] = None) -> ObjectDType: ...
+def string_dtype(encoding: _Encoding = "utf-8", length: None = None) -> ObjectDType: ...
 
 # end string_dtype overloads
 def check_enum_dtype(dt: np.dtype[Any]) -> dict[str, int] | None: ...
@@ -80,14 +74,14 @@ def check_opaque_dtype(dt: np.dtype[Any]) -> bool: ...
 def check_ref_dtype(dt: np.dtype[Any]) -> type[Reference | RegionReference] | None: ...
 def check_string_dtype(dt: np.dtype[Any]) -> string_info: ...
 def check_vlen_dtype(dt: np.dtype[Any]) -> np.dtype[Any] | None: ...
-def opaque_dtype(np_dtype: np.dtype[_GT]) -> np.dtype[_GT]: ...
+def opaque_dtype[G: np.generic](np_dtype: np.dtype[G]) -> np.dtype[G]: ...
 def vlen_dtype(basetype: ObjectDType) -> ObjectDType: ...
 def convert(
     src: TypeID,
     dst: TypeID,
     n: int,
-    buf: _GenericArray,
-    bkg: _GenericArray | None = None,
+    buf: onp.Array,
+    bkg: onp.Array | None = None,
     dxpl: PropDXID | None = None,
 ) -> None: ...
 def find(src: TypeID, dst: TypeID) -> tuple[int, ...] | None: ...
@@ -417,11 +411,8 @@ __all__ = [
     "enum_dtype",
     "find",
     "get_config",
-    "namedtuple",
-    "np",
     "opaque_dtype",
     "open",
-    "phil",
     "platform",
     "py_create",
     "ref_dtype",
@@ -429,9 +420,7 @@ __all__ = [
     "special_dtype",
     "string_dtype",
     "string_info",
-    "sys",
     "typewrap",
     "vlen_create",
     "vlen_dtype",
-    "with_phil",
 ]

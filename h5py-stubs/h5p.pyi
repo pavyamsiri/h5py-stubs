@@ -1,11 +1,11 @@
-from typing import Any, Final, Literal, TypeAlias
+from typing import Any, Final
 
 import numpy as np
 from h5py.h5ac import CacheConfig
 from h5py.h5s import SpaceID
 from typing_extensions import Self  # noqa: UP035
 
-from ._objects import ObjectID, phil, with_phil
+from ._objects import ObjectID
 
 __all__ = [
     "CRT_ORDER_INDEXED",
@@ -38,8 +38,6 @@ __all__ = [
     "PropOCID",
     "PropTCID",
     "create",
-    "phil",
-    "with_phil",
 ]
 
 CRT_ORDER_INDEXED: Final[int]
@@ -47,7 +45,7 @@ CRT_ORDER_TRACKED: Final[int]
 DATASET_ACCESS: Final[PropClassID]
 DATASET_CREATE: Final[PropClassID]
 DATASET_XFER: Final[PropClassID]
-DEFAULT: Literal[None]
+DEFAULT: None
 FILE_ACCESS: Final[PropClassID]
 FILE_CREATE: Final[PropClassID]
 GROUP_CREATE: Final[PropClassID]
@@ -57,8 +55,8 @@ NO_CLASS: Final[PropClassID]
 OBJECT_COPY: Final[PropClassID]
 OBJECT_CREATE: Final[PropClassID]
 
-_AnyShape: TypeAlias = tuple[int, ...]
-_AnyArray: TypeAlias = np.ndarray[_AnyShape, np.dtype[Any]]
+type _AnyShape = tuple[int, ...]
+type _AnyArray = np.ndarray[_AnyShape, np.dtype[Any]]
 
 type _PropListID = (
     PropFCID | PropFAID | PropDCID | PropDXID | PropCopyID | PropLCID | PropLAID | PropGCID | PropDAID | PropOCID | PropTCID
@@ -142,6 +140,8 @@ class PropFCID(PropOCID):
     def get_file_space_strategy(self) -> tuple[int, bool, int]: ...
     def set_file_space_page_size(self, fsp_size: int) -> None: ...
     def get_file_space_page_size(self) -> int: ...
+    def get_nfilters(self) -> int: ...
+    def get_filter(self, code: int) -> tuple[int, int, tuple[int, ...], bytes]: ...
 
 # --- Object access ---
 

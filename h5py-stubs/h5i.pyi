@@ -1,6 +1,6 @@
 from typing import Final
 
-from ._objects import ObjectID, phil, with_phil
+from ._objects import ObjectID
 from .h5f import FileID
 
 __all__ = [
@@ -20,8 +20,6 @@ __all__ = [
     "get_ref",
     "get_type",
     "inc_ref",
-    "phil",
-    "with_phil",
     "wrap_identifier",
 ]
 

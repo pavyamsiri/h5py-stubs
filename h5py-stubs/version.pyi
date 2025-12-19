@@ -1,5 +1,16 @@
 from typing import Final, NamedTuple
 
+__all__ = [
+    "api_version",
+    "api_version_tuple",
+    "hdf5_built_version_tuple",
+    "hdf5_version",
+    "hdf5_version_tuple",
+    "info",
+    "version",
+    "version_tuple",
+]
+
 class _H5PY_VERSION_CLS(NamedTuple):
     major: int
     minor: int
