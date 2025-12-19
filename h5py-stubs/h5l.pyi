@@ -1,7 +1,6 @@
 from collections.abc import Callable
-from typing import Final, Literal, TypeVar, overload
+from typing import Final, Literal, overload
 
-from ._objects import phil, with_phil
 from .h5g import GroupID
 from .h5p import PropLAID, PropLCID
 
@@ -11,11 +10,7 @@ __all__ = [
     "TYPE_SOFT",
     "LinkInfo",
     "LinkProxy",
-    "phil",
-    "with_phil",
 ]
-
-_R = TypeVar("_R")
 
 TYPE_HARD: Final[int]
 TYPE_SOFT: Final[int]
@@ -82,33 +77,33 @@ class LinkProxy:
 
     # visit overloads
     @overload
-    def visit(
+    def visit[R](
         self,
-        func: Callable[[bytes], _R | None | Literal[False]],
+        func: Callable[[bytes], R | None | Literal[False]],
         *,
         idx_type: int = ...,
         order: int = ...,
         obj_name: bytes = b".",
         lapl: PropLAID | None = None,
         info: bool = False,
-    ) -> _R: ...
+    ) -> R: ...
     @overload
-    def visit(
+    def visit[R](
         self,
-        func: Callable[[bytes, LinkInfo], _R | None | Literal[False]],
+        func: Callable[[bytes, LinkInfo], R | None | Literal[False]],
         *,
         idx_type: int = ...,
         order: int = ...,
         obj_name: bytes = b".",
         lapl: PropLAID | None = None,
         info: bool = True,
-    ) -> _R: ...
+    ) -> R: ...
 
     # iterate overloads
     @overload
-    def iterate(
+    def iterate[R](
         self,
-        func: Callable[[bytes], _R | None | Literal[False]],
+        func: Callable[[bytes], R | None | Literal[False]],
         *,
         idx_type: int = ...,
         order: int = ...,
@@ -116,11 +111,11 @@ class LinkProxy:
         lapl: PropLAID | None = None,
         info: bool = False,
         idx: int = 0,
-    ) -> tuple[_R, int]: ...
+    ) -> tuple[R, int]: ...
     @overload
-    def iterate(
+    def iterate[R](
         self,
-        func: Callable[[bytes, LinkInfo], _R | None | Literal[False]],
+        func: Callable[[bytes, LinkInfo], R | None | Literal[False]],
         *,
         idx_type: int = ...,
         order: int = ...,
@@ -128,4 +123,4 @@ class LinkProxy:
         lapl: PropLAID | None = None,
         info: bool = True,
         idx: int = 0,
-    ) -> tuple[_R, int]: ...
+    ) -> tuple[R, int]: ...

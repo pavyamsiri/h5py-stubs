@@ -1,6 +1,6 @@
 from typing import Final
 
-from ._objects import ObjectID, phil, with_phil
+from ._objects import ObjectID
 from .h5p import PropID
 from .h5s import SpaceID
 
@@ -14,8 +14,6 @@ __all__ = [
     "get_name",
     "get_obj_type",
     "get_region",
-    "phil",
-    "with_phil",
 ]
 
 OBJECT: Final[int]

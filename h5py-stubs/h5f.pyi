@@ -1,6 +1,6 @@
 import gc
 from collections import namedtuple
-from typing import Final, NamedTuple
+from typing import Final, NamedTuple, override
 
 from h5py.h5ac import CacheConfig
 from h5py.h5g import GroupIter
@@ -71,6 +71,7 @@ class PageStats(NamedTuple):
 class FileID(ObjectID):
     @property
     def name(self) -> bytes: ...
+    @override
     def close(self) -> None: ...
     def reopen(self) -> FileID: ...
     def get_filesize(self) -> int: ...

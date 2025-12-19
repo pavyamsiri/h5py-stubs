@@ -2,7 +2,7 @@ import gc
 import warnings
 import weakref
 from collections.abc import Callable
-from typing import Final, ParamSpec, TypeVar
+from typing import Final
 
 from ._locks import BogoLock, FastRLock
 
@@ -19,14 +19,11 @@ __all__ = [
     "with_phil",
 ]
 
-_P = ParamSpec("_P")
-_R = TypeVar("_R")
-
 phil: Final[FastRLock]
 
 def nonlocal_close() -> None: ...
 def print_reg() -> None: ...
-def with_phil(func: Callable[_P, _R]) -> Callable[_P, _R]: ...
+def with_phil[R](func: Callable[..., R]) -> Callable[..., R]: ...
 
 class ObjectID:
     @property

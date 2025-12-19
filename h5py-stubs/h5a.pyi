@@ -1,5 +1,5 @@
 from collections.abc import Callable
-from typing import TypeAlias, TypeVar, overload
+from typing import overload
 
 import numpy as np
 from optype import numpy as onpt
@@ -24,9 +24,8 @@ __all__ = [
     "with_phil",
 ]
 
-_R = TypeVar("_R")
-_AnyShape: TypeAlias = tuple[int, ...]
-_AnyArray: TypeAlias = np.ndarray[_AnyShape, onpt.DType]
+type _AnyShape = tuple[int, ...]
+type _AnyArray = np.ndarray[_AnyShape, onpt.DType]
 
 def open(
     loc: ObjectID,
@@ -68,27 +67,27 @@ def get_num_attrs(loc: ObjectID) -> int: ...
 # iterate overloads
 # Case 1: info = False
 @overload
-def iterate(
+def iterate[R](
     loc: ObjectID,
-    func: Callable[[bytes], _R],
+    func: Callable[[bytes], R],
     index: int = 0,
     *,
     index_type: int = ...,
     order: int = ...,
     info: bool = False,
-) -> _R: ...
+) -> R: ...
 
 # Case 1: info = True
 @overload
-def iterate(
+def iterate[R](
     loc: ObjectID,
-    func: Callable[[bytes, AttrInfo], _R],
+    func: Callable[[bytes, AttrInfo], R],
     index: int = 0,
     *,
     index_type: int = ...,
     order: int = ...,
     info: bool = True,
-) -> _R: ...
+) -> R: ...
 
 class AttrInfo:
     @property

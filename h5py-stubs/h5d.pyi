@@ -4,7 +4,7 @@ from typing import Any, Final, NamedTuple, TypeAlias, TypeVar
 
 import numpy as np
 
-from ._objects import ObjectID, phil, with_phil
+from ._objects import ObjectID
 from .h5p import PropDAID, PropDCID, PropDXID, PropLCID
 from .h5s import SpaceID
 from .h5t import TypeID
@@ -34,12 +34,10 @@ __all__ = [
     "create",
     "namedtuple",
     "open",
-    "phil",
-    "with_phil",
 ]
 
-_AnyShape: TypeAlias = tuple[int, ...]
-_AnyArray: TypeAlias = np.ndarray[_AnyShape, np.dtype[Any]]
+type _AnyShape = tuple[int, ...]
+type _AnyArray = np.ndarray[_AnyShape, np.dtype[Any]]
 _SCT = TypeVar("_SCT", bound=np.generic, default=np.generic)
 _Array1D: TypeAlias = np.ndarray[tuple[int, ...], np.dtype[_SCT]]
 

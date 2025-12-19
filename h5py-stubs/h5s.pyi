@@ -1,10 +1,9 @@
-from collections.abc import Sequence
-from typing import Final, TypeAlias, TypeVar
+from typing import Final
 
 import numpy as np
-from numpy.typing import NBitBase
+from optype import numpy as onp
 
-from ._objects import ObjectID, phil, with_phil
+from ._objects import ObjectID
 
 __all__ = [
     "ALL",
@@ -32,17 +31,9 @@ __all__ = [
     "create",
     "create_simple",
     "decode",
-    "phil",
-    "with_phil",
 ]
 
-_SCT = TypeVar("_SCT", bound=np.generic, default=np.generic)
-_Array2D: TypeAlias = np.ndarray[tuple[int, int], np.dtype[_SCT]]
-_Array3D: TypeAlias = np.ndarray[tuple[int, int, int], np.dtype[_SCT]]
-_HSize: TypeAlias = np.uint64
-_Coords: TypeAlias = (
-    _Array2D[np.unsignedinteger[NBitBase]] | Sequence[Sequence[int]] | Sequence[Sequence[np.unsignedinteger[NBitBase]]]
-)
+type _Coords = onp.Array2D[np.unsignedinteger]
 
 ALL: Final[SpaceID]
 NO_CLASS: Final[int]
@@ -92,10 +83,10 @@ class SpaceID(ObjectID):
     def select_none(self) -> None: ...
     def select_valid(self) -> bool: ...
     def get_select_elem_npoints(self) -> int: ...
-    def get_select_elem_pointlist(self) -> _Array2D[_HSize]: ...
+    def get_select_elem_pointlist(self) -> onp.Array2D[np.uint64]: ...
     def select_elements(self, coords: _Coords, op: int = ...) -> None: ...
     def get_select_hyper_nblocks(self) -> int: ...
-    def get_select_hyper_blocklist(self) -> _Array3D[_HSize]: ...
+    def get_select_hyper_blocklist(self) -> onp.Array3D[np.uint64]: ...
     def select_hyperslab(
         self,
         start: tuple[int, ...],

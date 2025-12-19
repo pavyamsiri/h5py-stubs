@@ -1,10 +1,6 @@
-from typing import TypeAlias
+from optype import numpy as onp
 
-import numpy as np
-from optype import numpy as onpt
+__all__ = ["check_numpy_read", "check_numpy_write"]
 
-_AnyShape: TypeAlias = tuple[int, ...]
-_AnyArray: TypeAlias = np.ndarray[_AnyShape, onpt.DType]
-
-def check_numpy_read(arr: _AnyArray, space_id: int = ...) -> int: ...
-def check_numpy_write(arr: _AnyArray, space_id: int = ...) -> int: ...
+def check_numpy_read(arr: onp.AnyArray, space_id: int = ...) -> int: ...
+def check_numpy_write(arr: onp.AnyArray, space_id: int = ...) -> int: ...

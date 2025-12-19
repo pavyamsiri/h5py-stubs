@@ -1,5 +1,5 @@
 from collections.abc import Callable
-from typing import Final, TypeVar, overload
+from typing import Final, overload
 
 from ._objects import ObjectID, phil, with_phil
 from .h5g import GroupID
@@ -27,8 +27,6 @@ __all__ = [
     "visit",
     "with_phil",
 ]
-
-_R = TypeVar("_R")
 
 TYPE_GROUP: Final[int]
 TYPE_DATASET: Final[int]
@@ -68,29 +66,29 @@ def open(loc: ObjectID, name: bytes, lapl: PropLAID | None = None) -> ObjectID: 
 # visit overloads
 # Case 1: info = False
 @overload
-def visit(
+def visit[R](
     loc: ObjectID,
-    func: Callable[[bytes], _R | None],
+    func: Callable[[bytes], R | None],
     *,
     idx_type: int = ...,
     order: int = ...,
     obj_name: bytes = b".",
     lapl: PropLAID | None = None,
     info: bool = False,
-) -> _R: ...
+) -> R: ...
 
 # Case 2: info = True
 @overload
-def visit(
+def visit[R](
     loc: ObjectID,
-    func: Callable[[bytes, ObjInfo], _R | None],
+    func: Callable[[bytes, ObjInfo], R | None],
     *,
     idx_type: int = ...,
     order: int = ...,
     obj_name: bytes = b".",
     lapl: PropLAID | None = None,
     info: bool = False,
-) -> _R: ...
+) -> R: ...
 
 class _OHdrMesg:
     @property
