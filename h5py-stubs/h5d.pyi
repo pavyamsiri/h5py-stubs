@@ -1,8 +1,8 @@
-from collections import namedtuple
 from collections.abc import Callable
-from typing import Any, Final, NamedTuple, TypeAlias, TypeVar
+from typing import Final, NamedTuple
 
 import numpy as np
+from optype import numpy as onp
 
 from ._objects import ObjectID
 from .h5p import PropDAID, PropDCID, PropDXID, PropLCID
@@ -32,16 +32,8 @@ __all__ = [
     "DatasetID",
     "StoreInfo",
     "create",
-    "namedtuple",
     "open",
 ]
-
-type _AnyShape = tuple[int, ...]
-type _AnyArray = np.ndarray[_AnyShape, np.dtype[Any]]
-_SCT = TypeVar("_SCT", bound=np.generic, default=np.generic)
-_Array1D: TypeAlias = np.ndarray[tuple[int, ...], np.dtype[_SCT]]
-
-_R = TypeVar("_R")
 
 ALLOC_TIME_DEFAULT: Final[int]
 ALLOC_TIME_EARLY: Final[int]
@@ -82,7 +74,7 @@ class StoreInfo(NamedTuple):
 
 class DatasetID(ObjectID):
     @property
-    def dtype(self) -> np.dtype[Any]: ...
+    def dtype(self) -> onp.DType: ...
     @property
     def shape(self) -> tuple[int, ...]: ...
     @property
@@ -91,7 +83,7 @@ class DatasetID(ObjectID):
         self,
         mspace: SpaceID,
         fspace: SpaceID,
-        arr_obj: _AnyArray,
+        arr_obj: onp.Array,
         mtype: TypeID | None = None,
         dxpl: PropDXID | None = None,
     ) -> None: ...
@@ -99,7 +91,7 @@ class DatasetID(ObjectID):
         self,
         mspace: SpaceID,
         fspace: SpaceID,
-        arr_obj: _AnyArray,
+        arr_obj: onp.Array,
         mtype: TypeID | None = None,
         dxpl: PropDXID | None = None,
     ) -> None: ...
@@ -125,9 +117,9 @@ class DatasetID(ObjectID):
         self,
         offsets: tuple[int, ...],
         dxpl: PropDXID | None = None,
-        out: _Array1D[np.uint8] | None = None,
+        out: onp.Array1D[np.uint8] | None = None,
     ) -> None: ...
     def get_num_chunks(self, space: SpaceID | None = None) -> int: ...
     def get_chunk_info(self, index: int, space: SpaceID | None = None) -> int: ...
     def get_chunk_info_by_coord(self, chunk_offset: tuple[int, ...]) -> StoreInfo: ...
-    def chunk_iter(self, func: Callable[[StoreInfo], _R | None]) -> _R: ...
+    def chunk_iter[R](self, func: Callable[[StoreInfo], R | None]) -> R: ...

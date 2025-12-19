@@ -1,6 +1,6 @@
 import abc
 from collections.abc import Callable, ItemsView, Iterable, Iterator, KeysView, Mapping, MutableMapping, ValuesView
-from typing import Any, overload, override
+from typing import overload, override
 
 import numpy as np
 from _typeshed import StrOrBytesPath
@@ -62,7 +62,7 @@ def array_for_new_object(
 @overload
 def array_for_new_object[SCT: np.generic](
     data: onp.AnyArray[SCT],
-    specified_dtype: type[np.dtype[Any]] | None = None,
+    specified_dtype: type[onp.DType] | None = None,
 ) -> onp.AnyArray[SCT]: ...
 
 # Case 3: data is an array-like (not array) and specified dtype is given

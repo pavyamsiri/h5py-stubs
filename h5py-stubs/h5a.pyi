@@ -2,7 +2,7 @@ from collections.abc import Callable
 from typing import overload
 
 import numpy as np
-from optype import numpy as onpt
+from optype import numpy as onp
 
 from ._objects import ObjectID, phil, with_phil
 from .h5p import PropLAID
@@ -23,9 +23,6 @@ __all__ = [
     "rename",
     "with_phil",
 ]
-
-type _AnyShape = tuple[int, ...]
-type _AnyArray = np.ndarray[_AnyShape, onpt.DType]
 
 def open(
     loc: ObjectID,
@@ -106,8 +103,8 @@ class AttrID(ObjectID):
     def shape(self) -> tuple[int, ...] | None: ...
     @property
     def dtype(self) -> np.dtype[np.generic]: ...
-    def read(self, arr: _AnyArray, mtype: TypeID | None = None) -> None: ...
-    def write(self, arr: _AnyArray, mtype: TypeID | None = None) -> None: ...
+    def read(self, arr: onp.Array, mtype: TypeID | None = None) -> None: ...
+    def write(self, arr: onp.Array, mtype: TypeID | None = None) -> None: ...
     def get_name(self) -> bytes: ...
     def get_shape(self) -> SpaceID: ...
     def get_dtype(self) -> TypeID: ...
