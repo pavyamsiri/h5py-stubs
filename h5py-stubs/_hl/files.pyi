@@ -10,6 +10,17 @@ from typing_extensions import Self, override  # noqa: UP035
 
 from .group import Group
 
+__all__ = [
+    "File",
+    "make_fapl",
+    "make_fcpl",
+    "make_fid",
+    "mpi",
+    "register_driver",
+    "registered_drivers",
+    "unregister_driver",
+]
+
 mpi: Final[bool]
 
 type _Driver = Callable[Concatenate[PropFAID, ...], None]
